@@ -1,18 +1,24 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: 'tsconfig.json',
-    sourceType: 'module',
+    // This setting is required if you want to use rules which require type information
+    project: './tsconfig.json',
+    tsconfigRootDir: __dirname,
+    sourceType: "module",
   },
-  plugins: ['@typescript-eslint/eslint-plugin'],
+  plugins: ['@typescript-eslint/eslint-plugin', 'prettier', 'react'],
   extends: [
-    'plugin:@typescript-eslint/recommended',
+    'eslint:recommended',
+    'eslint-config-prettier',
     'plugin:prettier/recommended',
+    'airbnb-base',
+    'airbnb-typescript'
   ],
   root: true,
   env: {
     node: true,
     jest: true,
+    browser: true,
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
@@ -20,5 +26,8 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "import/prefer-default-export": "off",
+    "class-methods-use-this": ["error", { "exceptMethods": ["getHello"] }]
   },
 };
