@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { GreetingsRepository } from './greetings.repository';
-import { LastGreeting } from './lastGreeting.schema';
+import { LastGreeting } from './schemas/lastGreeting.schema';
+import { FirstGreeting } from './schemas/firstGreeting.schema';
 
 @Injectable()
 export class GreetingsService {
@@ -12,5 +13,13 @@ export class GreetingsService {
 
   async addLastGreeting(createLastGreetingDto): Promise<LastGreeting> {
     return this.greetingsRepository.saveLastGreetings(createLastGreetingDto);
+  }
+
+  async getFirstGreetings(): Promise<FirstGreeting[]> {
+    return this.greetingsRepository.findAllFirstGreetings();
+  }
+
+  async addFirstGreeting(createFirstGreetingDto): Promise<FirstGreeting> {
+    return this.greetingsRepository.saveFirstGreetings(createFirstGreetingDto);
   }
 }
