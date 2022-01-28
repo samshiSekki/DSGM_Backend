@@ -12,7 +12,8 @@ module.exports = {
     'eslint-config-prettier',
     'plugin:prettier/recommended',
     'airbnb-base',
-    'airbnb-typescript'
+    'airbnb-typescript',
+    'prettier'
   ],
   root: true,
   env: {
@@ -28,6 +29,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "import/prefer-default-export": "off",
-    "class-methods-use-this": ["error", { "exceptMethods": ["getHello"] }]
+    "class-methods-use-this": ["error", { "exceptMethods": ["getHello"] }],
+    "prettier/prettier": ["error", { "endOfLine": "auto" }]   
   },
 };

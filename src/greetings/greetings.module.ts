@@ -6,8 +6,8 @@ import { GreetingsService } from './greetings.service';
 import { LastGreeting, LastGreetingSchema } from './lastGreeting.schema';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: LastGreeting.name, schema : LastGreetingSchema }])],
+  imports: [MongooseModule.forFeature([{ name: LastGreeting.name, schema: LastGreetingSchema }])],
   controllers: [GreetingsController],
-  providers: [GreetingsRepository, GreetingsService]
+  providers: [GreetingsRepository, GreetingsService],
 })
 export class GreetingsModule {}

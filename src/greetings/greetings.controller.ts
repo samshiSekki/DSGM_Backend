@@ -5,16 +5,15 @@ import { LastGreeting } from './lastGreeting.schema';
 
 @Controller('greetings')
 export class GreetingsController {
-    constructor(private readonly greetingsService: GreetingsService) {}
+  constructor(private readonly greetingsService: GreetingsService) {}
 
-    @Get()
-    getLastGreetings(): Promise<LastGreeting[]> {
-        return this.greetingsService.getLastGreetings();
-    }
-    
-    @Post()
-    addLastGreeting(@Body() createLastGreetingDto : CreateLastGreetingDto): Promise<LastGreeting> {
-        return this.greetingsService.addLastGreeting(createLastGreetingDto);
-    }
+  @Get()
+  getLastGreetings(): Promise<LastGreeting[]> {
+    return this.greetingsService.getLastGreetings();
+  }
+
+  @Post()
+  addLastGreeting(@Body() createLastGreetingDto: CreateLastGreetingDto): Promise<LastGreeting> {
+    return this.greetingsService.addLastGreeting(createLastGreetingDto);
+  }
 }
-
