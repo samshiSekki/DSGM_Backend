@@ -1,17 +1,19 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { GreetingsController } from './greetings.controller';
-import { GreetingsRepository } from './greetings.repository';
-import { GreetingsService } from './greetings.service';
+import { MailFormsController } from './mailForms.controller';
+import { MailFormsRepository } from './mailForms.repository';
+import { MailFormsService } from './mailForms.service';
 import { LastGreeting, LastGreetingSchema } from './schemas/lastGreeting.schema';
 import { FirstGreeting, FirstGreetingSchema } from './schemas/firstGreeting.schema';
+import { Content, ContentSchema } from './schemas/content.schema';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: LastGreeting.name, schema: LastGreetingSchema }]),
     MongooseModule.forFeature([{ name: FirstGreeting.name, schema: FirstGreetingSchema }]),
+    MongooseModule.forFeature([{ name: Content.name, schema: ContentSchema }]),
   ],
-  controllers: [GreetingsController],
-  providers: [GreetingsRepository, GreetingsService],
+  controllers: [MailFormsController],
+  providers: [MailFormsRepository, MailFormsService],
 })
-export class GreetingsModule {}
+export class MailFormsModule {}

@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { GreetingsModule } from './greetings/greetings.module';
+import { MailFormsModule } from './mailForms/mailForms.module';
 
 @Module({
   imports: [
@@ -13,7 +13,7 @@ import { GreetingsModule } from './greetings/greetings.module';
         uri: `${process.env.DB_url}`,
       }),
     }),
-    GreetingsModule,
+    MailFormsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

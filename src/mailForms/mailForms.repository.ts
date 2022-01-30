@@ -1,31 +1,44 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { CreateContentDto } from './dto/create-content.dto';
 import { CreateGreetingDto } from './dto/create-greeting.dto';
+import { Content, ContentsDocument } from './schemas/content.schema';
 import { FirstGreeting, FirstGreetingsDocument } from './schemas/firstGreeting.schema';
 import { LastGreeting, LastGreetingsDocument } from './schemas/lastGreeting.schema';
 
-export class GreetingsRepository {
+export class MailFormsRepository {
   constructor(
     @InjectModel(LastGreeting.name)
     private LastGreetingModel: Model<LastGreetingsDocument>,
     @InjectModel(FirstGreeting.name)
     private FirstGreetingModel: Model<FirstGreetingsDocument>,
+    @InjectModel(Content.name)
+    private ContentModel: Model<ContentsDocument>,
   ) {}
 
   async findAllLastGreetings(): Promise<LastGreeting[]> {
     return this.LastGreetingModel.find();
   }
 
-  async saveLastGreetings(createLastGreetingDto: CreateGreetingDto): Promise<LastGreeting> {
+  async saveLastGreeting(createLastGreetingDto: CreateGreetingDto): Promise<LastGreeting> {
     const lastGreeting = new this.LastGreetingModel(createLastGreetingDto);
     return lastGreeting.save();
+  }
+
+  async findAllContents(): Promise<Content[]> {
+    return this.ContentModel.find();
+  }
+
+  async saveContent(createContentDto: CreateContentDto): Promise<Content> {
+    const content = new this.ContentModel(createContentDto);
+    return content.save();
   }
 
   async findAllFirstGreetings(): Promise<FirstGreeting[]> {
     return this.FirstGreetingModel.find();
   }
 
-  async saveFirstGreetings(createFirstGreetingDto: CreateGreetingDto): Promise<FirstGreeting> {
+  async saveFirstGreeting(createFirstGreetingDto: CreateGreetingDto): Promise<FirstGreeting> {
     const firstGreeting = new this.FirstGreetingModel(createFirstGreetingDto);
     return firstGreeting.save();
   }
