@@ -20,12 +20,20 @@ export class MailFormsService {
     return this.mailFormsRepository.findAllContents();
   }
 
+  async getContentsByCategory(category: string): Promise<Content[]> {
+    return this.mailFormsRepository.findAllContentsByCategory(category);
+  }
+
   async addContent(createContentDto): Promise<Content> {
     return this.mailFormsRepository.saveContent(createContentDto);
   }
 
   async getLastGreetings(): Promise<LastGreeting[]> {
     return this.mailFormsRepository.findAllLastGreetings();
+  }
+
+  async getLastGreetingsByCategory(category: string): Promise<LastGreeting[]> {
+    return this.mailFormsRepository.findAllLastGreetingsByCategory(category);
   }
 
   async addLastGreeting(createLastGreetingDto): Promise<LastGreeting> {
