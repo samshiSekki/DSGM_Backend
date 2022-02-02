@@ -5,15 +5,18 @@ import { CreateGreetingDto } from './dto/create-greeting.dto';
 import { Content, ContentsDocument } from './schemas/content.schema';
 import { FirstGreeting, FirstGreetingsDocument } from './schemas/firstGreeting.schema';
 import { LastGreeting, LastGreetingsDocument } from './schemas/lastGreeting.schema';
+import { Suggestion } from './schemas/suggestion.schema';
 
 export class MailFormsRepository {
   constructor(
     @InjectModel(LastGreeting.name)
-    private LastGreetingModel: Model<LastGreetingsDocument>,
+      private LastGreetingModel: Model<LastGreetingsDocument>,
     @InjectModel(FirstGreeting.name)
-    private FirstGreetingModel: Model<FirstGreetingsDocument>,
+      private FirstGreetingModel: Model<FirstGreetingsDocument>,
     @InjectModel(Content.name)
-    private ContentModel: Model<ContentsDocument>,
+      private ContentModel: Model<ContentsDocument>,
+    @InjectModel(Suggestion.name)
+      private SuggestionModel: Model<Suggestion>,
   ) {}
 
   async findAllFirstGreetings(): Promise<FirstGreeting[]> {
@@ -49,5 +52,10 @@ export class MailFormsRepository {
   async saveLastGreeting(createLastGreetingDto: CreateGreetingDto): Promise<LastGreeting> {
     const lastGreeting = new this.LastGreetingModel(createLastGreetingDto);
     return lastGreeting.save();
+  }
+
+  async suggestGreeting(createSuggestionDto): Promise<Suggestion> {
+    const suggestion = new this.SuggestionModel(createSuggestionDto);
+    return suggestion.save();
   }
 }

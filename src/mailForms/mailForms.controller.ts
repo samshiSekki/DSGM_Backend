@@ -6,6 +6,8 @@ import { FirstGreeting } from './schemas/firstGreeting.schema';
 import { CreateContentDto } from './dto/create-content.dto';
 import { Content } from './schemas/content.schema';
 import { MailFormsService } from './mailForms.service';
+import { CreateSuggestionDto } from './dto/create-suggestion.dto';
+import { Suggestion } from './schemas/suggestion.schema';
 
 @ApiTags('mail-forms')
 @Controller('mail-forms')
@@ -60,5 +62,11 @@ export class MailFormsController {
   @ApiBody({ type: CreateGreetingDto })
   addLastGreeting(@Body() createLastGreetingDto: CreateGreetingDto): Promise<LastGreeting> {
     return this.mailFormsService.addLastGreeting(createLastGreetingDto);
+  }
+
+  @Post('/suggestion')
+  @ApiBody({ type: CreateSuggestionDto })
+  suggestGreeting(@Body() createSuggestionDto: CreateSuggestionDto): Promise<Suggestion> {
+    return this.mailFormsService.suggestGreeting(createSuggestionDto);
   }
 }

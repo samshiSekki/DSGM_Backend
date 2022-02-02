@@ -3,6 +3,7 @@ import { MailFormsRepository } from './mailForms.repository';
 import { LastGreeting } from './schemas/lastGreeting.schema';
 import { FirstGreeting } from './schemas/firstGreeting.schema';
 import { Content } from './schemas/content.schema';
+import { Suggestion } from './schemas/suggestion.schema';
 
 @Injectable()
 export class MailFormsService {
@@ -38,5 +39,9 @@ export class MailFormsService {
 
   async addLastGreeting(createLastGreetingDto): Promise<LastGreeting> {
     return this.mailFormsRepository.saveLastGreeting(createLastGreetingDto);
+  }
+  
+  async suggestGreeting(createSuggestionDto): Promise<Suggestion> {
+    return this.mailFormsRepository.suggestGreeting(createSuggestionDto);
   }
 }
