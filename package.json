@@ -30,6 +30,7 @@
     "@nestjs/swagger": "^5.1.5",
     "class-validator": "^0.13.2",
     "config": "^3.3.7",
+    "cookie-parser": "^1.4.6",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
