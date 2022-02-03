@@ -9,12 +9,16 @@ import { Suggestion } from './schemas/suggestion.schema';
 export class MailFormsService {
   constructor(private readonly mailFormsRepository: MailFormsRepository) {}
 
+  async addFirstGreeting(createFirstGreetingDto): Promise<FirstGreeting> {
+    return this.mailFormsRepository.saveFirstGreeting(createFirstGreetingDto);
+  }
+
   async getFirstGreetings(): Promise<FirstGreeting[]> {
     return this.mailFormsRepository.findAllFirstGreetings();
   }
 
-  async addFirstGreeting(createFirstGreetingDto): Promise<FirstGreeting> {
-    return this.mailFormsRepository.saveFirstGreeting(createFirstGreetingDto);
+  async getFirstGreetingsByCategory(category: string): Promise<FirstGreeting[]> {
+    return this.mailFormsRepository.findAllFirstGreetingsByCategory(category);
   }
 
   async getContents(): Promise<Content[]> {
@@ -40,7 +44,7 @@ export class MailFormsService {
   async addLastGreeting(createLastGreetingDto): Promise<LastGreeting> {
     return this.mailFormsRepository.saveLastGreeting(createLastGreetingDto);
   }
-  
+
   async suggestGreeting(createSuggestionDto): Promise<Suggestion> {
     return this.mailFormsRepository.suggestGreeting(createSuggestionDto);
   }
