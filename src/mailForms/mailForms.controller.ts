@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { ApiTags, ApiBody, ApiResponse, ApiQuery } from '@nestjs/swagger';
+import { ApiTags, ApiBody, ApiResponse, ApiQuery, ApiOperation } from '@nestjs/swagger';
 import { CreateGreetingDto } from './dto/create-greeting.dto';
 import { LastGreeting } from './schemas/lastGreeting.schema';
 import { FirstGreeting } from './schemas/firstGreeting.schema';
@@ -15,6 +15,7 @@ export class MailFormsController {
   constructor(private readonly mailFormsService: MailFormsService) {}
 
   @Get('/first')
+  @ApiOperation({ summary: '첫 인사 조회 API' })
   @ApiResponse({ description: '첫 인사 조회 API' })
   @ApiQuery({ name: 'category', required: false, description: 'type명' })
   getFirstGreetings(@Query() query): Promise<FirstGreeting[]> {
@@ -30,20 +31,14 @@ export class MailFormsController {
   }
 
   @Get('/contents')
+  @ApiOperation({ summary: '카테고리별 멘트 조회 API' })
   @ApiResponse({ description: '카테고리별 멘트 조회 API' })
-  @ApiQuery({ name: 'category', required: false, description: 'type명' })
+  @ApiQuery({ name: 'category', required: false, description: 'type명 _ 빌넣 please / 추천서 recomment / 성적문의 grade' })
   getRecommendContents(@Query() query): Promise<Content[]> {
     const { category } = query;
     if (category == null) return this.mailFormsService.getContents();
-    // 본문 멘트 조회
     return this.mailFormsService.getContentsByCategory(category);
   }
-
-  // @Get('/contents')
-  // @ApiResponse({ description: '본문 멘트 조회 API' })
-  // getContents(): Promise<Content[]> {
-  //   return this.mailFormsService.getContents();
-  // }
 
   @Post('/contents')
   @ApiBody({ type: CreateContentDto })
@@ -52,6 +47,7 @@ export class MailFormsController {
   }
 
   @Get('/last')
+  @ApiOperation({ summary: '끝 인사 조회 API' })
   @ApiResponse({ description: '끝 인사 조회 API' })
   @ApiQuery({ name: 'category', required: false, description: 'type명' })
   getLastGreetings(@Query() query): Promise<LastGreeting[]> {
@@ -67,6 +63,7 @@ export class MailFormsController {
   }
 
   @Post('/suggestion')
+  @ApiOperation({ summary: '멘트 제안하기 API' })
   @ApiBody({ type: CreateSuggestionDto })
   suggestGreeting(@Body() createSuggestionDto: CreateSuggestionDto): Promise<Suggestion> {
     return this.mailFormsService.suggestGreeting(createSuggestionDto);
