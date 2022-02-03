@@ -13,7 +13,7 @@ import { Suggestion, SuggestionSchema } from './schemas/suggestion.schema';
     MongooseModule.forFeature([{ name: LastGreeting.name, schema: LastGreetingSchema }]),
     MongooseModule.forFeature([{ name: FirstGreeting.name, schema: FirstGreetingSchema }]),
     MongooseModule.forFeature([{ name: Content.name, schema: ContentSchema }]),
-    MongooseModule.forFeature([{ name: Suggestion.name, schema: SuggestionSchema }])
+    MongooseModule.forFeature([{ name: Suggestion.name, schema: SuggestionSchema }]),
   ],
   controllers: [MailFormsController],
   providers: [MailFormsRepository, MailFormsService],

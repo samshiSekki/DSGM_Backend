@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import { ApiTags, ApiBody, ApiResponse } from '@nestjs/swagger';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { ApiTags, ApiBody, ApiResponse, ApiQuery } from '@nestjs/swagger';
 import { CreateGreetingDto } from './dto/create-greeting.dto';
 import { LastGreeting } from './schemas/lastGreeting.schema';
 import { FirstGreeting } from './schemas/firstGreeting.schema';
@@ -16,8 +16,11 @@ export class MailFormsController {
 
   @Get('/first')
   @ApiResponse({ description: '첫 인사 조회 API' })
-  getFirstmailForms(): Promise<FirstGreeting[]> {
-    return this.mailFormsService.getFirstGreetings();
+  @ApiQuery({ name: 'category', required: false, description: 'type명' })
+  getFirstGreetings(@Query() query): Promise<FirstGreeting[]> {
+    const { category } = query;
+    if (category == null) return this.mailFormsService.getFirstGreetings();
+    return this.mailFormsService.getFirstGreetingsByCategory(category);
   }
 
   @Post('/first')
@@ -28,12 +31,12 @@ export class MailFormsController {
 
   @Get('/contents')
   @ApiResponse({ description: '카테고리별 멘트 조회 API' })
+  @ApiQuery({ name: 'category', required: false, description: 'type명' })
   getRecommendContents(@Query() query): Promise<Content[]> {
     const { category } = query;
-    if(category == null)
-      return this.mailFormsService.getContents(); // 본문 멘트 조회 
-    else
-      return this.mailFormsService.getContentsByCategory(category);
+    if (category == null) return this.mailFormsService.getContents();
+    // 본문 멘트 조회
+    return this.mailFormsService.getContentsByCategory(category);
   }
 
   // @Get('/contents')
@@ -50,12 +53,11 @@ export class MailFormsController {
 
   @Get('/last')
   @ApiResponse({ description: '끝 인사 조회 API' })
+  @ApiQuery({ name: 'category', required: false, description: 'type명' })
   getLastGreetings(@Query() query): Promise<LastGreeting[]> {
     const { category } = query;
-    if(category == null)
-      return this.mailFormsService.getLastGreetings();
-    else
-      return this.mailFormsService.getLastGreetingsByCategory(category);
+    if (category == null) return this.mailFormsService.getLastGreetings();
+    return this.mailFormsService.getLastGreetingsByCategory(category);
   }
 
   @Post('/last')

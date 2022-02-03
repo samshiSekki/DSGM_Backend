@@ -10,17 +10,21 @@ import { Suggestion } from './schemas/suggestion.schema';
 export class MailFormsRepository {
   constructor(
     @InjectModel(LastGreeting.name)
-      private LastGreetingModel: Model<LastGreetingsDocument>,
+    private LastGreetingModel: Model<LastGreetingsDocument>,
     @InjectModel(FirstGreeting.name)
-      private FirstGreetingModel: Model<FirstGreetingsDocument>,
+    private FirstGreetingModel: Model<FirstGreetingsDocument>,
     @InjectModel(Content.name)
-      private ContentModel: Model<ContentsDocument>,
+    private ContentModel: Model<ContentsDocument>,
     @InjectModel(Suggestion.name)
-      private SuggestionModel: Model<Suggestion>,
+    private SuggestionModel: Model<Suggestion>,
   ) {}
 
   async findAllFirstGreetings(): Promise<FirstGreeting[]> {
     return this.FirstGreetingModel.find();
+  }
+
+  async findAllFirstGreetingsByCategory(category: string): Promise<FirstGreeting[]> {
+    return this.FirstGreetingModel.find({ type: category });
   }
 
   async saveFirstGreeting(createFirstGreetingDto: CreateGreetingDto): Promise<FirstGreeting> {
@@ -33,7 +37,7 @@ export class MailFormsRepository {
   }
 
   async findAllContentsByCategory(category: string): Promise<Content[]> {
-    return await this.ContentModel.find({type: category});
+    return this.ContentModel.find({ type: category });
   }
 
   async saveContent(createContentDto: CreateContentDto): Promise<Content> {
@@ -46,7 +50,7 @@ export class MailFormsRepository {
   }
 
   async findAllLastGreetingsByCategory(category: string): Promise<LastGreeting[]> {
-    return this.LastGreetingModel.find({type: category});
+    return this.LastGreetingModel.find({ type: category });
   }
 
   async saveLastGreeting(createLastGreetingDto: CreateGreetingDto): Promise<LastGreeting> {
