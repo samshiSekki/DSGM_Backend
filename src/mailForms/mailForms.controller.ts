@@ -15,9 +15,9 @@ export class MailFormsController {
   constructor(private readonly mailFormsService: MailFormsService) {}
 
   @Get('/first')
-  @ApiOperation({ summary: '첫 인사 조회 API' })
-  @ApiResponse({ description: '첫 인사 조회 API' })
-  @ApiQuery({ name: 'category', required: false, description: 'type명' })
+  @ApiOperation({ summary: '첫 인사 조회 API', description: '카테고리별로 첫 인사를 조회한다.' })
+  @ApiResponse({ status: 200, description: '성공'})
+  @ApiQuery({ name: 'category', required: false, description: 'type명 _ 기본 default / 계절 season / 날씨 weather / 학업 study'  })
   getFirstGreetings(@Query() query): Promise<FirstGreeting[]> {
     const { category } = query;
     if (category == null) return this.mailFormsService.getFirstGreetings();
@@ -31,8 +31,8 @@ export class MailFormsController {
   }
 
   @Get('/contents')
-  @ApiOperation({ summary: '카테고리별 멘트 조회 API' })
-  @ApiResponse({ description: '카테고리별 멘트 조회 API' })
+  @ApiOperation({ summary: '카테고리별 멘트 조회 API',  description: '카테고리별로 멘트(본문)를 조회한다.' })
+  @ApiResponse({ status: 200, description: '성공'})
   @ApiQuery({ name: 'category', required: false, description: 'type명 _ 빌넣 please / 추천서 recomment / 성적문의 grade' })
   getRecommendContents(@Query() query): Promise<Content[]> {
     const { category } = query;
@@ -47,9 +47,9 @@ export class MailFormsController {
   }
 
   @Get('/last')
-  @ApiOperation({ summary: '끝 인사 조회 API' })
-  @ApiResponse({ description: '끝 인사 조회 API' })
-  @ApiQuery({ name: 'category', required: false, description: 'type명' })
+  @ApiOperation({ summary: '끝 인사 조회 API', description: '카테고리별로 끝인사를 조회한다.' })
+  @ApiResponse({ status: 200, description: '성공'})
+  @ApiQuery({ name: 'category', required: false, description: 'type명 _ 기본 default / 계절 season / 날씨 weather / 하루 time' })
   getLastGreetings(@Query() query): Promise<LastGreeting[]> {
     const { category } = query;
     if (category == null) return this.mailFormsService.getLastGreetings();
@@ -63,7 +63,7 @@ export class MailFormsController {
   }
 
   @Post('/suggestion')
-  @ApiOperation({ summary: '멘트 제안하기 API' })
+  @ApiOperation({ summary: '멘트 제안하기 API', description: '사용자가 제안한 멘트를 등록한다.' })
   @ApiBody({ type: CreateSuggestionDto })
   suggestGreeting(@Body() createSuggestionDto: CreateSuggestionDto): Promise<Suggestion> {
     return this.mailFormsService.suggestGreeting(createSuggestionDto);
