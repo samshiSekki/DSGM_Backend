@@ -3,8 +3,6 @@ import { ApiTags, ApiBody, ApiResponse, ApiQuery, ApiOperation } from '@nestjs/s
 import { CreateGreetingDto } from './dto/create-greeting.dto';
 import { LastGreeting } from './schemas/lastGreeting.schema';
 import { FirstGreeting } from './schemas/firstGreeting.schema';
-import { CreateContentDto } from './dto/create-content.dto';
-import { Content } from './schemas/content.schema';
 import { MailFormsService } from './mailForms.service';
 import { CreateSuggestionDto } from './dto/create-suggestion.dto';
 import { Suggestion } from './schemas/suggestion.schema';
@@ -28,22 +26,6 @@ export class MailFormsController {
   @ApiBody({ type: CreateGreetingDto })
   addFirstGreeting(@Body() createFirstGreetingDto: CreateGreetingDto): Promise<FirstGreeting> {
     return this.mailFormsService.addFirstGreeting(createFirstGreetingDto);
-  }
-
-  @Get('/contents')
-  @ApiOperation({ summary: '카테고리별 멘트 조회 API',  description: '카테고리별로 멘트(본문)를 조회한다.' })
-  @ApiResponse({ status: 200, description: '성공'})
-  @ApiQuery({ name: 'category', required: false, description: 'type명 _ 빌넣 please / 추천서 recomment / 성적문의 grade' })
-  getRecommendContents(@Query() query): Promise<Content[]> {
-    const { category } = query;
-    if (category == null) return this.mailFormsService.getContents();
-    return this.mailFormsService.getContentsByCategory(category);
-  }
-
-  @Post('/contents')
-  @ApiBody({ type: CreateContentDto })
-  addContent(@Body() createContentDto: CreateContentDto): Promise<Content> {
-    return this.mailFormsService.addContent(createContentDto);
   }
 
   @Get('/last')

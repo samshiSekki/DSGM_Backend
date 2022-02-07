@@ -9,6 +9,11 @@ export class CreateSuggestionDto {
 
   @IsNotEmpty()
   @IsString()
+  @ApiProperty({ type: String, default: 'firstGreeting', description: '첫인사/끝인사 구분용 카테고리' })
+  category: string;
+
+  @IsNotEmpty()
+  @IsString()
   @ApiProperty({ type: String, default: '교수님 안녕하세요', description: '제안멘트' })
   suggestion: string;
 }
