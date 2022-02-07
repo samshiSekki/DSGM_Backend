@@ -5,14 +5,12 @@ import { MailFormsRepository } from './mailForms.repository';
 import { MailFormsService } from './mailForms.service';
 import { LastGreeting, LastGreetingSchema } from './schemas/lastGreeting.schema';
 import { FirstGreeting, FirstGreetingSchema } from './schemas/firstGreeting.schema';
-import { Content, ContentSchema } from './schemas/content.schema';
 import { Suggestion, SuggestionSchema } from './schemas/suggestion.schema';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: LastGreeting.name, schema: LastGreetingSchema }]),
     MongooseModule.forFeature([{ name: FirstGreeting.name, schema: FirstGreetingSchema }]),
-    MongooseModule.forFeature([{ name: Content.name, schema: ContentSchema }]),
     MongooseModule.forFeature([{ name: Suggestion.name, schema: SuggestionSchema }]),
   ],
   controllers: [MailFormsController],

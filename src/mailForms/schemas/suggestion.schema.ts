@@ -9,6 +9,9 @@ export class Suggestion {
   type: string;
 
   @Prop()
+  category: string;
+
+  @Prop()
   suggestion: string;
 }
 
