@@ -3,7 +3,7 @@ WORKDIR /dsgm-backend
 # ENV DB_url ${{secrets.DATABASE_URL}}
 COPY package*.json /dsgm-backend
 RUN npm install
-COPY env.txt /dsgm-backend/.env
+COPY .env /dsgm-backend/.env
 ADD . /dsgm-backend
 EXPOSE 5000
 CMD npm run start
