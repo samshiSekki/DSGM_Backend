@@ -43,8 +43,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - run: cat .env
-
       - name: Build and push
         id: docker_build
       - uses: docker/build-push-action@v2
