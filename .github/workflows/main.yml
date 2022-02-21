@@ -22,7 +22,17 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
     - run: npm run build --if-present # build, test가 이루어짐
-    
+
+
+    - name: Create .env
+      shell: bash
+      env:
+        DB_url: ${{ secrets.DATABASE_URL }}
+      run: |
+        touch .env
+        echo DB_url="$DB_url" >> .env
+        cat .env
+        
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
 
