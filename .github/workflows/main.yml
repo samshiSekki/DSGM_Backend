@@ -15,11 +15,6 @@ jobs:
         node-version: [14.x]   # 이 workflow 내에서의 변수
 
     steps:
-    - name: Set env file
-      run: |
-        sed -i "1s#=#&$SERVER#" .env
-        echo DB_url=${{ secrets.DATABASE_URL }} >> .env
-        
     - uses: actions/checkout@v2            # github repo내의 코드를 workflow instance로 가져오는 action 실행 /
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1          # nodejs 버전에 따라 workflow를 수행하도록 해주는 action 실행
