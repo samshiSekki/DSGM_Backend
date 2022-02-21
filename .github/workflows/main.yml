@@ -15,40 +15,41 @@ jobs:
         node-version: [14.x]   # 이 workflow 내에서의 변수
 
     steps:
-    - uses: actions/checkout@v2            # github repo내의 코드를 workflow instance로 가져오는 action 실행 /
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1          # nodejs 버전에 따라 workflow를 수행하도록 해주는 action 실행
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run build --if-present # build, test가 이루어짐
+      - uses: actions/checkout@v2            # github repo내의 코드를 workflow instance로 가져오는 action 실행 /
+      
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1          # nodejs 버전에 따라 workflow를 수행하도록 해주는 action 실행
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run build --if-present # build, test가 이루어짐
 
+      - name: Create .env
+        shell: bash
+        env:
+          DB_url: ${{ secrets.DATABASE_URL }}
+        run: |
+          touch .env
+          echo DB_url="$DB_url" >> .env
+          cat .env
 
-    - name: Create .env
-      shell: bash
-      env:
-        DB_url: ${{ secrets.DATABASE_URL }}
-      run: |
-        touch .env
-        echo DB_url="$DB_url" >> .env
-        cat .env
-        
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
-    - name: Login to DockerHub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Build and push
-      id: docker_build
-      uses: docker/build-push-action@v2
-      with:
-        push: true
-        secrets: DB_url=${{ secrets.DATABASE_URL }}
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/test:latest
+      - name: Build and push
+        id: docker_build
+      - run: cat .env
+      - uses: docker/build-push-action@v2
+        with:
+          push: true
+          secrets: DB_url=${{ secrets.DATABASE_URL }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/test:latest
         
 #   deploy:
 #     needs: build
