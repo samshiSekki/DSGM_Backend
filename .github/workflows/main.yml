@@ -37,6 +37,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
+        secrets: DB_url=${{ secrets.DATABASE_URL }}
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/test:latest
         
 #   deploy:
