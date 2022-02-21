@@ -25,14 +25,13 @@ jobs:
 
 
     - name: Create .env
-      working-directory: ../../..
 #       shell: bash
 #       env:
 #         DB_url: ${{ secrets.DATABASE_URL }}
       run: |
-        touch .env
-        cat << EOF >> .env
-        ${{ secrets.ENV }}
+        echo "DB_url=$DATABASE_URL" >> .env
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
         
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
