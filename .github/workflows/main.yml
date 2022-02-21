@@ -26,12 +26,13 @@ jobs:
 
       - name: Create .env
         shell: bash
-        env:
-          DB_url: ${{ secrets.DATABASE_URL }}
+        working-directory: ../../..
+#         env:
+#           DB_url: ${{ secrets.DATABASE_URL }}
         run: |
           touch .env
-          echo DB_url="$DB_url" >> .env
-          cat .env
+          cat << EOF >> .env
+          ${{ secrets.ENV }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -42,9 +43,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - run: cat .env
+
       - name: Build and push
         id: docker_build
-      - run: cat .env
       - uses: docker/build-push-action@v2
         with:
           push: true
