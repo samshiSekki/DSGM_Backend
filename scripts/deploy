@@ -1,0 +1,12 @@
+#!/bin/sh
+ssh ubuntu@13.125.177.135 <<EOF
+    cd ~/DSGM_Backend	
+    git pull origin main
+    npm install 14
+    npm install -g typescript
+    npm install -g ts-node
+    npm install -g forever
+    npm run build
+    npm run forever
+    exit
+EOF
