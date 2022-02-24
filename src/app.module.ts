@@ -10,7 +10,7 @@ import { join } from 'path';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../build', 'index.html'),
+      rootPath: join(__dirname, '../../DSGM_Frontend', 'build'),
     }),
     ConfigModule.forRoot(),
     MongooseModule.forRootAsync({
