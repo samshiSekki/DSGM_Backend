@@ -5,5 +5,5 @@ COPY package*.json /dsgm
 RUN npm install
 COPY .env /dsgm/.env
 ADD . /dsgm
-EXPOSE 5000
+EXPOSE 80
 CMD npm run start
