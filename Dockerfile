@@ -1,9 +1,9 @@
 FROM node:14
-WORKDIR /dsgm-backend
+WORKDIR /dsgm
 # ENV DB_url ${{secrets.DATABASE_URL}}
-COPY package*.json /dsgm-backend
+COPY package*.json /dsgm
 RUN npm install
-COPY .env /dsgm-backend/.env
-ADD . /dsgm-backend
+COPY .env /dsgm/.env
+ADD . /dsgm
 EXPOSE 5000
 CMD npm run start
