@@ -8,6 +8,14 @@ import { Suggestion } from './schemas/suggestion.schema';
 export class MailFormsService {
   constructor(private readonly mailFormsRepository: MailFormsRepository) {}
 
+  async getVisit(){
+    return this.mailFormsRepository.getVisit();
+  }
+
+  async updateVisit(visit){
+    return this.mailFormsRepository.updateVisit(visit)
+  }
+
   async addFirstGreeting(createFirstGreetingDto): Promise<FirstGreeting> {
     return this.mailFormsRepository.saveFirstGreeting(createFirstGreetingDto);
   }

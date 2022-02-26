@@ -3,6 +3,7 @@ import { Model } from 'mongoose';
 import { CreateGreetingDto } from './dto/create-greeting.dto';
 import { FirstGreeting, FirstGreetingsDocument } from './schemas/firstGreeting.schema';
 import { LastGreeting, LastGreetingsDocument } from './schemas/lastGreeting.schema';
+import { Visit, VisitDocument } from './schemas/visit.schema';
 import { Suggestion } from './schemas/suggestion.schema';
 
 export class MailFormsRepository {
@@ -13,7 +14,17 @@ export class MailFormsRepository {
     private FirstGreetingModel: Model<FirstGreetingsDocument>,
     @InjectModel(Suggestion.name)
     private SuggestionModel: Model<Suggestion>,
+    @InjectModel(Visit.name)
+    private VisitModel: Model<VisitDocument>,
   ) {}
+
+  async getVisit() {
+    return await this.VisitModel.find();
+  }
+
+  async updateVisit(visit) {
+    return await this.VisitModel.updateOne(visit);
+  }
 
   async findAllFirstGreetings(): Promise<FirstGreeting[]> {
     return this.FirstGreetingModel.find();
