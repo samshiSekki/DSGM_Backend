@@ -22,7 +22,7 @@
     "forever": "forever start -m 999 -a -o log/out.log -e log/err.log dist/main.js"
   },
   "dependencies": {
-    "@nestjs/common": "^8.3.1",
+    "@nestjs/common": "^8.4.0",
     "@nestjs/config": "^1.1.6",
     "@nestjs/core": "^8.4.0",
     "@nestjs/mongoose": "^9.0.2",
