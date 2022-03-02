@@ -7,6 +7,7 @@ import { MailFormsService } from './mailForms.service';
 import { CreateSuggestionDto } from './dto/create-suggestion.dto';
 import { Suggestion } from './schemas/suggestion.schema';
 import { Visit } from './schemas/visit.schema';
+require("dotenv").config();
 
 @ApiTags('mail-forms')
 @Controller('mail-forms')
@@ -21,7 +22,7 @@ export class MailFormsController {
     return counter[0].counter
   }
 
-  @Put('/visit')
+  @Put(process.env.VISIT_PUT_URL)
   @ApiOperation({summary:'방문자 수 업데이트'})
   @ApiBody({ type: Visit })
   async updateVisit(@Body() visit) {
@@ -40,7 +41,7 @@ export class MailFormsController {
     return this.mailFormsService.getFirstGreetingsByCategory(category);
   }
 
-  @Post('/first')
+  @Post(process.env.FIRST_POST_URL)
   @ApiBody({ type: CreateGreetingDto })
   addFirstGreeting(@Body() createFirstGreetingDto: CreateGreetingDto): Promise<FirstGreeting> {
     return this.mailFormsService.addFirstGreeting(createFirstGreetingDto);
@@ -56,13 +57,13 @@ export class MailFormsController {
     return this.mailFormsService.getLastGreetingsByCategory(category);
   }
 
-  @Post('/last')
+  @Post(process.env.LAST_POST_URL)
   @ApiBody({ type: CreateGreetingDto })
   addLastGreeting(@Body() createLastGreetingDto: CreateGreetingDto): Promise<LastGreeting> {
     return this.mailFormsService.addLastGreeting(createLastGreetingDto);
   }
 
-  @Post('/suggestion')
+  @Post(process.env.SUGGEST_POST_URL)
   @ApiOperation({ summary: '멘트 제안하기 API', description: '사용자가 제안한 멘트를 등록한다.' })
   @ApiBody({ type: CreateSuggestionDto })
   suggestGreeting(@Body() createSuggestionDto: CreateSuggestionDto): Promise<Suggestion> {
