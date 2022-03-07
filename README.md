@@ -4,11 +4,11 @@
 http://mail-helper.com/
 
 ---
-## 개발 프레임워크
-NestJS
+## Stack
+NestJS, MongoDB
 
-## 데이터베이스
-MongoDB
+## 배포 환경
+AWS EC2, Docker
 
 ## Member
 ● Front-end <br/>
