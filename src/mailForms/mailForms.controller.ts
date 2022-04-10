@@ -6,30 +6,12 @@ import { FirstGreeting } from './schemas/firstGreeting.schema';
 import { MailFormsService } from './mailForms.service';
 import { CreateSuggestionDto } from './dto/create-suggestion.dto';
 import { Suggestion } from './schemas/suggestion.schema';
-import { Visit } from './schemas/visit.schema';
 require("dotenv").config();
 
 @ApiTags('mail-forms')
 @Controller('mail-forms')
 export class MailFormsController {
   constructor(private readonly mailFormsService: MailFormsService) {}
-
-  @Get('/visit')
-  @ApiOperation({summary:'방문자 수 조회'
-  })
-  async getVisit() {
-    const counter = await this.mailFormsService.getVisit();
-    return counter[0].counter
-  }
-
-  @Put(process.env.VISIT_PUT_URL)
-  @ApiOperation({summary:'방문자 수 업데이트'})
-  @ApiBody({ type: Visit })
-  async updateVisit(@Body() visit) {
-     await this.mailFormsService.updateVisit(visit);
-     const counter = await this.mailFormsService.getVisit();
-     return counter[0].counter
-  }
 
   @Get('/first')
   @ApiOperation({ summary: '첫 인사 조회 API', description: '카테고리별로 첫 인사를 조회한다.' })
