@@ -6,6 +6,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MailFormsModule } from './mailForms/mailForms.module';
 import { join } from 'path';
+import { SpellCheckerModule } from './spellChecker/spellChecker.module';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { join } from 'path';
         uri: `${process.env.DB_url}`,
       }),
     }),
-    MailFormsModule,
+    MailFormsModule, SpellCheckerModule
   ],
   controllers: [AppController],
   providers: [AppService],

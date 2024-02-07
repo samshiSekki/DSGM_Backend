@@ -7,6 +7,7 @@ import { LastGreeting, LastGreetingSchema } from './schemas/lastGreeting.schema'
 import { FirstGreeting, FirstGreetingSchema } from './schemas/firstGreeting.schema';
 import { Suggestion, SuggestionSchema } from './schemas/suggestion.schema';
 import { Visit, VisitSchema } from './schemas/visit.schema';
+import { SpellCheckerService } from 'src/spellChecker/spellChecker.service';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { Visit, VisitSchema } from './schemas/visit.schema';
     MongooseModule.forFeature([{ name: Visit.name, schema: VisitSchema }]),
   ],
   controllers: [MailFormsController],
-  providers: [MailFormsRepository, MailFormsService],
+  providers: [MailFormsRepository, MailFormsService, SpellCheckerService],
 })
 export class MailFormsModule {}
+ 
