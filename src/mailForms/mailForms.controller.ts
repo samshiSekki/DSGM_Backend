@@ -12,11 +12,12 @@ require("dotenv").config();
 @ApiTags('mail-forms')
 @Controller('mail-forms')
 export class MailFormsController {
-  constructor(private readonly mailFormsService: MailFormsService) {}
+  constructor(
+    private readonly mailFormsService: MailFormsService,
+  ) {}
 
   @Get('/visit')
-  @ApiOperation({summary:'방문자 수 조회'
-  })
+  @ApiOperation({summary:'방문자 수 조회'})
   async getVisit() {
     const counter = await this.mailFormsService.getVisit();
     return counter[0].counter
