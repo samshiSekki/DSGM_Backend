@@ -13,6 +13,6 @@ export class SpellCheckerController {
   @ApiOperation({summary:'passport Key 조회'})
   async getPassportKey() {
     const passportKey = await this.spellCheckerService.getPassportKey();
-    return passportKey
+    return passportKey != null ? { passportKey } : { message: '응답 실패' };
   }
 }
